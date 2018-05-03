@@ -1,3 +1,3 @@
 module.exports = [
-    { name: 'func', path: './js/function.js' }
+    { name: 'func', path: './src/js/function.js' }
 ];

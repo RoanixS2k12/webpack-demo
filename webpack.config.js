@@ -86,11 +86,9 @@ const webpackConfig = {
     ]
 }
 
-
-
 scripts.forEach((script) => {
     console.log(script);
-    webpackConfig.entry["func"] = "./src/js/function.js"
+    webpackConfig.entry[script.name] = script.path;
 });
 
 

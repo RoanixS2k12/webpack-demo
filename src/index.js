@@ -1,11 +1,9 @@
 import style from "./_scss/main.scss";
-require('expose-loader?$!jquery');
+require('expose-loader?angular!angular');
 
-console.log(`I've been required by webpack`)
+import emc2appModule from './js/components/emc2.module'
 
-const arr = [1,2,3];
-const es6func = () => console.log(...arr);
-
-es6func();
-
-console.log(window.jQuery);
+angular
+    .module('emc2App', [
+        emc2appModule.name
+    ]);
