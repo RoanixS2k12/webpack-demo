@@ -2,7 +2,11 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
+const scripts = require('./webpack.untranspiled');
+
+const scriptsNames = scripts.map(s => s.name);
+
+const webpackConfig = {
     entry: {
         app: './src/index.js'
     },
@@ -48,6 +52,11 @@ module.exports = {
                         options: 'jQuery'
                     }
                 ]
+            },
+            {
+                test: /\.css$/,
+                use: ['to-string-loader', 'css-loader']
+            
             }
         ]
     },
@@ -66,7 +75,9 @@ module.exports = {
     plugins: [
         new HtmlWebPackPlugin({
             template: "src/index.html",
-            filename: "./index.html"
+            filename: "./index.html",
+            chunks: ['vendors', ...Array.from(scripts, k => k.name) , 'app'],
+            chunksSortMode: 'manual'
         }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
@@ -74,3 +85,13 @@ module.exports = {
         })
     ]
 }
+
+
+
+scripts.forEach((script) => {
+    console.log(script);
+    webpackConfig.entry["func"] = "./src/js/function.js"
+});
+
+
+module.exports = webpackConfig;
